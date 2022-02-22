@@ -13,7 +13,7 @@ router.get('/movies', function(req, res){
 router.get('/movies/:number', function(req, res){
     let movies = ["James-bond", "Dil", "Dhoom", "Sin-city", "Black-Friday"];
     let index = req.params.number
-    if(index >= movies.length ){
+    if(index >= movies.length || index < 0 ){
         res.send("Invalid input")
     }else{
     res.send(movies[index])
@@ -51,22 +51,23 @@ router.get ('/films/:filmId', function(req, res){
         id: 4,
         name: "Finding Demo"
        }];
-
-
-           movieId <= 3 ? res.send(films[movieId]) : res.send("invalid input")
-        // for(let i=0; i< films.length; i++){
-        //     if (movieId >= 5){
-        //         res.send("invalid film ID")
-        //     }else if (films[i].id !== movieId) {
-        //                 continue;
-        //     }else {
-        //         res.send(films[i].name)
-        //     }
-        // } 
-
-
+       let flag = false;
+        for(let i=0; i<films.length; i++){
+            let movieName = films[i]
+            if (movieName.id != movieId){
+                flag = false
+            }else {
+                 res.send(films[i])
+                 break;
+            }
+          
+        }
+        if(flag == false){
+            res.send("no such movie exist")
+        }
        
-})
+       
+});
 
 
 module.exports = router;
