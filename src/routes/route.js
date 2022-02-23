@@ -1,73 +1,36 @@
 const express = require('express');
-const router = express.Router();
+const app = express.Router();
 
-router.get('/students/:name', function(req, res) {
-    let studentName = req.params.name
-    console.log(studentName)
-    res.send(studentName)
-})
-router.get('/movies', function(req, res){
-    let movies = ["James-bond", "Dil", "Dhoom", "Sin-city", "Black-Friday"]
-    res.send(movies)
-})
-router.get('/movies/:number', function(req, res){
-    let movies = ["James-bond", "Dil", "Dhoom", "Sin-city", "Black-Friday"];
-    let index = req.params.number
-    if(index >= movies.length || index < 0 ){
-        res.send("Invalid input")
-    }else{
-    res.send(movies[index])
-    }
-})
-router.get('/films', function(req, res){
-    let films = [ {
-        id: 1,
-        name: "The Shining"
-       }, {
-        id: 2,
-        name: "Incendies"
-       }, {
-        id: 3,
-        name: "Rang de Basanti"
-       }, {
-        id: 4,
-        name: "Finding Demo"
-       }];
-       res.send(films)
-       
-})
-router.get ('/films/:filmId', function(req, res){
-    let movieId  = req.params.filmId
-    let films =[ {
-        id: 1,
-        name: "The Shining"
-       }, {
-        id: 2,
-        name: "Incendies"
-       }, {
-        id: 3,
-        name: "Rang de Basanti"
-       }, {
-        id: 4,
-        name: "Finding Demo"
-       }];
-       let flag = false;
-        for(let i=0; i<films.length; i++){
-            let movieName = films[i]
-            if (movieName.id != movieId){
-                flag = false
-            }else {
-                 res.send(films[i])
-                 break;
+
+        app.get('/sol1', function(req, res){
+            let array = [1,2,3,5,6,7,8,9]
+            let sumOfArray = 0
+            let lastElement = array[array.length -1]
+             for (let i =0; i< array.length; i++ ){
+                 sumOfArray = sumOfArray + array[i]
+             }
+             let actualSumOfArray = (lastElement * (lastElement + 1)) / 2
+             let missingNumber = actualSumOfArray - sumOfArray
+             console.log(missingNumber)
+             res.send({"data": missingNumber})
+        })
+
+        app.get('/sol2', function(req, res){
+            let array = [33,34,35,37,38]
+            let beforeFirstElement = array[0] - 1
+            let lastElement = array[array.length - 1]
+            let sumOfArray = 0
+            for (let i =0; i< array.length; i++ ){
+                sumOfArray = sumOfArray + array[i]
             }
-          
-        }
-        if(flag == false){
-            res.send("no such movie exist")
-        }
-       
-       
-});
+
+            let sumOfNumberBeforeFirst = (beforeFirstElement * (beforeFirstElement + 1)) / 2
+            let sumOfNumberTillLast = (lastElement * (lastElement + 1)) / 2
+            let missingNumber = (sumOfNumberTillLast - sumOfNumberBeforeFirst) - sumOfArray
+             res.send({"data": missingNumber})
+
+        })
 
 
-module.exports = router;
+module.exports = app;
+
