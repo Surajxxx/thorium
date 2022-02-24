@@ -87,16 +87,13 @@ const players = [ {
         newPlayer.sports = [userSports]
         newPlayer.bookings = [userBooking]
         for (let i =0; i<players.length; i++){
-            if(players[i].name != userName){
-                players.push(newPlayer)
-                console.log(newPlayer)
-                res.send(players)
-            }else{
-                res.send("name already exist")
-                break;
+            if(players[i].name === userName){
+                res.send("player already exist")
             }
         }
         
+        players.push(newPlayer)
+        res.send(players)
        
     })
     
@@ -108,19 +105,14 @@ const players = [ {
         for(let i=0; i<players.length; i++){
             if (players[i].name == userName){
                 let arr = players[i].bookings
-                if(arr.length === 0){
-                    arr.push(userBookings)
-                    res.send(players)
-                }else{
+              
                 for (let j=0; j<arr.length; j++){
-                    if(arr[j].bookingNumber != userBookingId) {
-                        arr.push(userBookings)
-                        res.send(players)
-                    }else{
+                    if(arr[j].bookingNumber == userBookingId) {
                         res.send("booking ID already exist")
                     }
                 }
-            }
+                arr.push(userBookings)
+                res.send(players)
             
         } 
             
