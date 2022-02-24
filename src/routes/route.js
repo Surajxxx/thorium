@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-let persons= [
+const persons= [
         {
         name: "PK",
         age: 10,
@@ -29,12 +29,9 @@ let persons= [
     ]
 
     router.post('/voters', function(req,res){
-        let votingAge = req.query.votingAge
-        let personCanVote = persons.filter(element => element.age > votingAge)
-        console.log(personCanVote)
-             
-        let updatedPersonWhoCanVote = personCanVote.map(element => ({name: element.name, age: element.age, votingStatus: true}))
-        res.send(updatedPersonWhoCanVote)
+        const votingAge = req.query.votingAge
+        const personCanVote = persons.filter(element => element.age > votingAge).map(element => ({...element, votingStatus : true}))
+        res.send(personCanVote)
     })
 
 
