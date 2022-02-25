@@ -30,7 +30,9 @@ const persons= [
 
     router.post('/voters', function(req,res){
         const votingAge = req.query.votingAge
+        console.log(req)
         const personCanVote = persons.filter(element => element.age > votingAge).map(element => ({...element, votingStatus : true}))
+        console.log(personCanVote)
         res.send(personCanVote)
     })
 
