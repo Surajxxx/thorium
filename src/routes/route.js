@@ -1,11 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const controller = require('../controller/userControllers')
-const userSchema = require('../models/userSchema')
+const modelSchema = require('../models/personSchema')
+const controller = require('../controller/functionControllers')
 
-router.post('/profile', controller.updateProfile )
+router.get('/test-me', function(req, res){
+    res.send({status: true})
+})
 
-router.get('/getData', controller.getProfile)
+router.post('/newData', controller.postNewData )
+
+router.get('/checkData', controller.getAllData )
+
 
 
 module.exports = router;
