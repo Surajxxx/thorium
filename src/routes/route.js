@@ -1,25 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const BookController = require('../controller/bookController')
+const Controller = require('../controller/controller')
 
 router.get('/test', function(req, res){
   res.send({API: "WORKING"})
 })
 
-router.post('/createBook', BookController.createBook)
+router.post('/createBook', Controller.createBook)
 
-router.get('/bookList', BookController.getBook)
+router.post('/createAuthor', Controller.createAuthor)
 
+router.get('/bookByChetan', Controller.bookByChetan)
 
-router.post('/getBooksInYear', BookController.booksInYear)
+router.post('/priceUpdate', Controller.priceUpdate)
 
-router.post('/getParticularBooks', BookController.particularBooks)
-
-router.get('/getXINRBooks', BookController.getINRBooks)
-
-router.get('/getRandomBooks', BookController.getRandomBooks)
-
-
+router.get('/booksInPrice', Controller.booksInPrice)
 
 
 
