@@ -25,12 +25,14 @@ const booksInYear = async function (req, res){
 }
 
 const particularBooks = async function (req, res){
-   
-    let arr = Object.entries(req.body)//[[prop, val], [prop1, val1]]
-    let arr1 = arr.map(([p, v]) => ({ [p] : v }))// [{prop : val}, {prop1 : val1}]
 
-    console.log(arr1)
-    let book = await BookModel.find({$and : arr1})
+    let obj = req.body
+   //-----------------method 2---------------------------
+    // let arr = Object.entries(req.body)//[[prop, val], [prop1, val1]]
+    // let arr1 = arr.map(([p, v]) => ({ [p] : v }))// [{prop : val}, {prop1 : val1}]
+
+    // console.log(arr1)
+    let book = await BookModel.find(obj)
    
     res.send({msg: book})
 }
