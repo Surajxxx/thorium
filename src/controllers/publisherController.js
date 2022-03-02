@@ -8,7 +8,7 @@ const createPublisher = async function(req, res){
 }
 
 const getPublisherData = async function (req, res) {
-    let listOfPublishers = await AuthorModel.find()
+    let listOfPublishers = await PublisherModel.find()
     res.send({data: listOfPublishers})
 }
 

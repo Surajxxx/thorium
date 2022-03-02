@@ -8,7 +8,7 @@ const createBook= async function (req, res) {
     let data = req.body
     let auId = data.author
     let pbId = data.publisher
-    console.log(data)
+    // console.log(data)
 
     let author1 = await authorModel.findById(auId)
     let publisher1 = await publisherModel.findById(pbId)
