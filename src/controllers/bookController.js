@@ -20,13 +20,17 @@ const createBook= async function (req, res) {
         if(author1 === null)  {
             return  res.send({error: "author is not present"})
         }else{
-            
+           if (data.hasOwnProperty("publisher")){
             if(publisher1 === null){
                 return res.send({error : "publisher is not present"})
             }else{
                 let bookData = await bookModel.create(data)
                 return res.send({book : bookData})
             }
+           } else{
+               return res.send({error : "publisher id is required" })
+           }
+           
            
         }
     
