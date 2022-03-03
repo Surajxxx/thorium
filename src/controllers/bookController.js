@@ -82,12 +82,12 @@ const updatePrice = async function (req,res) {
     let authorsRating = books.filter(ele => (ele.author.rating >= 3.5))
     
     let booksName = authorsRating.map(x => x.name)
-
+    console.log(booksName)
     let updatedPrice = []
 
     for (let i=0; i<booksName.length;  i++){
         let element = booksName[i]
-        let updateData = await bookModel.findOneAndUpdate({name : element}, {$inc : data}, {new : true})
+        let updateData = await bookModel.findOneAndUpdate({name : element}, {$inc : {price : +10}}, {new : true})
         updatedPrice.push(updateData)
     }
     res.send({updatedPrice : updatedPrice})
