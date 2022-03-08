@@ -1,14 +1,22 @@
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
+const UserModel = require('../models/userModel')
 
-const validateToken = async function (req, res, next){
-    let token = req.headers["x-auth-token"]
+const validateToken = async function (req, res, next) {
+    let id = req.params.userId
+    let user = await UserModel.findById(id);
+    if (!user) return res.send({ status: false, msg: "User ID does not exist" });
 
-    if(!token) return res.send({status: false, msg: "[x-auth-token] must be provided"})
+  let token = req.headers["x-auth-token"];
 
-    let tokenValidation = await jwt.verify(token, "surajdubey")
+  if (!token)
+    return res.send({ status: false, msg: "[x-auth-token] must be provided" });
 
-    if(!tokenValidation) return res.send({status: false, msg:"Invalid token"})
-    next()
-}
+  let tokenValidation =  jwt.verify(token, "surajdubey");
+  console.log(tokenValidation)
+  
+  if (tokenValidation.userId != id )
+    return res.send({ status: false, msg: "Invalid token" });
+  next();
+};
 
-module.exports.validateToken = validateToken
+module.exports.validateToken = validateToken;
