@@ -48,7 +48,7 @@ let tempOfCities = async function(req,res){
         if(key){
 
             let temp = []
-            let temp1= []
+            
             for(let i=0; i<cities.length; i++){
                 
                 let options = {
@@ -58,7 +58,7 @@ let tempOfCities = async function(req,res){
                 let result = await axios (options)
                 let tempOfCity = result.data.main.temp
                 temp.push([cities[i] , tempOfCity] )
-                temp1.push(tempOfCity)
+                
                 
             }
             console.log(temp)

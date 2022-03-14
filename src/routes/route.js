@@ -3,7 +3,7 @@ const router = express.Router();
 const CowinController = require('../controllers/cowinController')
 const WeatherController = require('../controllers/weatherController')
 const MemeController = require('../controllers/memeController')
-
+// const Practice = require('../controllers/practice')
 
 
 router.get("/test-me", function (req, res) {
@@ -19,8 +19,11 @@ router.get('/getWeather', WeatherController.getWeather)
 router.get('/tempOfLondon', WeatherController.tempOfLondon)
 router.get('/tempOfCities', WeatherController.tempOfCities)
 
-// getMemes
+// getMemes, createMeme
 router.get('/getMemes', MemeController.getMemes )
 router.post('/createMemes', MemeController.createMemes)
 
+
+//practice
+// router.get('/getByDistrict', Practice.getByDistrict)
 module.exports = router;
