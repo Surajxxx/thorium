@@ -1,29 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const CowinController = require('../controllers/cowinController')
-const WeatherController = require('../controllers/weatherController')
-const MemeController = require('../controllers/memeController')
-// const Practice = require('../controllers/practice')
+const AuthorController = require('../controllers/authorController')
+const BlogsController = require('../controllers/blogsController')
 
-
-router.get("/test-me", function (req, res) {
-    res.send("My first ever api!")
+router.get('/test', function(req, res){
+    res.status(200).send({status: true, message: "test api working fine"})
 })
 
-// GETOTP and vaccine sessions by district APIs
-router.post('/getOtp', CowinController.getOtp )
-router.get('/sessionsByDistrict', CowinController.sessionsByDistrict)
-
-// getWeather, tempOfLondon, tempOfCities
-router.get('/getWeather', WeatherController.getWeather)
-router.get('/tempOfLondon', WeatherController.tempOfLondon)
-router.get('/tempOfCities', WeatherController.tempOfCities)
-
-// getMemes, createMeme
-router.get('/getMemes', MemeController.getMemes )
-router.post('/createMemes', MemeController.createMemes)
+// Create author
+router.post('/authors', AuthorController.createAuthor)
 
 
-//practice
-// router.get('/getByDistrict', Practice.getByDistrict)
+// Create blogs
+router.post('/blogs', BlogsController.createBlogs )
+
+// Get blogs 
+router.get('/blogs', BlogsController.getFilteredBlogs)
+
+//update blogs
+router.put('/blogs/:blogId', BlogsController.updateBlog)
+
+//Deleted blogs by params
+router.delete('/blogs/:blogId', BlogsController.deleteBlog)
+router.delete('/blogs', BlogsController.deleteFilteredBlog)
+
 module.exports = router;
