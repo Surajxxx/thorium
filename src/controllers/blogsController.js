@@ -111,14 +111,34 @@ const deleteBlog = async function (req, res) {
 const deleteFilteredBlog = async function (req, res) {
     try {
         let input = req.query
+        if (Object.keys(input).length == 0)  return res.status(400).send({ status: false, msg: "please provide input data" }) 
+
+        //* below methods for converting inputData to array of objects
+        let filters = Object.entries(input)
+        console.log(filters)
+        let filtersAsObject = []
+        let totalDocuments
+
+        for (let i = 0; i < filters.length; i++) {
+            let element = filters[i]
+            let obj = {}
+            obj[element[0]] = element[1]
+            filtersAsObject.push(obj)
+        }
+
+        //* conditions are given in project documents and finalFilters will have both conditions & filters.
+
+        let conditions = [{ isDeleted: false }, { isPublished: false }]
+        let finalFilters = conditions.concat(filtersAsObject)
+        console.log(finalFilters)
+
         let inputArray = Object.entries(input)
         let emptyInput = inputArray.filter(ele => ele[1] == "")
 
         if(emptyInput.length != 0) return res.status(400).send({status: false, msg: "property could not be blank"})
            
-        if (Object.keys(input).length == 0)  return res.status(400).send({ status: false, msg: "please provide input data" })  
-
-        let deletedBlog = await BlogsModel.updateMany({ $and: [input, { isDeleted: false }, { isPublished : false}] }, { $set: { isDeleted: true, deletedAt: Date.now() } }, { new: true })
+       
+        let deletedBlog = await BlogsModel.updateMany({ $and: finalFilters }, { $set: { isDeleted: true, deletedAt: Date.now() } }, { new: true })
 
         res.status(200).send()
     } catch (error) {
